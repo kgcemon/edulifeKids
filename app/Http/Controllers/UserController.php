@@ -5,13 +5,20 @@ use App\Mail\OTPMail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
 
-    function LoginPage():View{
+    function LoginPage(Request $request){
+        $token=$request->cookie('token');
+
+        if($token != null){
+           return redirect('/dashboard');
+        }
         return view('pages.auth.login-page');
     }
 
@@ -62,20 +69,12 @@ class UserController extends Controller
        $count=User::where('email','=',$request->input('email'))
             ->where('password','=',$request->input('password'))
             ->select('id')->first();
-
        if($count!==null){
-           // User Login-> JWT Token Issue
            $token=JWTToken::CreateToken($request->input('email'),$count->id);
-           return response()->json([
-               'status' => 'success',
-               'message' => 'User Login Successful',
-           ],200)->cookie('token',$token,time()+60*24*30);
+           return redirect('/dashboard')->with('success','Welcome Admin Good day')->cookie('token',$token,time()+60*24*30);
        }
        else{
-           return response()->json([
-               'status' => 'failed',
-               'message' => 'unauthorized'
-           ],200);
+           return back()->with('error','Invalid email or password');
 
        }
 

@@ -78,7 +78,39 @@
 
     <a href="{{url("/admissionPage")}}" class="side-bar-item">
         <i class="bi bi-people"></i>
-        <span class="side-bar-item-caption">All Admission</span>
+        <span class="side-bar-item-caption">All Visitor</span>
+    </a>
+    <a href="{{url("/campus")}}" class="side-bar-item">
+        <i class="bi bi-wallet"></i>
+        <span class="side-bar-item-caption">Campus</span>
+    </a>
+
+    <a href="{{url("/fee")}}" class="side-bar-item">
+        <i class="bi bi-collection"></i>
+        <span class="side-bar-item-caption">Fee</span>
+    </a>
+
+    <a href="{{url("/invoice")}}" class="side-bar-item">
+        <i class="bi bi-collection"></i>
+        <span class="side-bar-item-caption">Invoice</span>
+    </a>
+
+    <a href="{{url("/shift")}}" class="side-bar-item">
+        <i class="bi bi-clock"></i>
+        <span class="side-bar-item-caption">Shift</span>
+    </a>
+    <a href="{{url("/batch")}}" class="side-bar-item">
+        <i class="bi bi-building"></i>
+        <span class="side-bar-item-caption">Batch</span>
+    </a>
+    <a href="{{url("/student")}}" class="side-bar-item">
+        <i class="bi bi-mortarboard"></i>
+        <span class="side-bar-item-caption">Student List</span>
+    </a>
+
+    <a href="{{url("/session")}}" class="side-bar-item">
+        <i class="bi bi-calendar"></i>
+        <span class="side-bar-item-caption">Session</span>
     </a>
 
     <!-- Professional Dropdown Menu -->
@@ -89,9 +121,23 @@
             <i class="ms-auto bi bi-chevron-down"></i>
         </a>
         <div id="sectionDropdown" class="collapse">
-            <a href="{{url("/admissionPage")}}" class="side-bar-item">
+            <a href="{{url("/logo")}}" class="side-bar-item">
                 <i class="bi bi-people"></i>
                 <span class="side-bar-item-caption">Change Logo</span>
+            </a>
+        </div>
+
+        <div id="sectionDropdown" class="collapse">
+            <a href="{{url("/navbar")}}" class="side-bar-item">
+                <i class="bi bi-people"></i>
+                <span class="side-bar-item-caption">Change NavBar</span>
+            </a>
+        </div>
+
+        <div id="sectionDropdown" class="collapse">
+            <a href="{{url("/hero-Section")}}" class="side-bar-item">
+                <i class="bi bi-people"></i>
+                <span class="side-bar-item-caption">Change Hero-Section</span>
             </a>
         </div>
     </div>

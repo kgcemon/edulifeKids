@@ -1,41 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
-use App\Models\Customer;
-use App\Models\Invoice;
-use App\Models\Product;
-use Illuminate\Http\Request;
+
+use App\Models\Campus;
+use App\Models\Student;
+use App\Models\Visitors;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    function DashboardPage():View{
-        return view('pages.dashboard.dashboard-page');
-    }
-
-    function Summary(Request $request):array{
-
-        $user_id=$request->header('id');
-
-        $product= Product::where('user_id',$user_id)->count();
-        $Category= Category::where('user_id',$user_id)->count();
-        $Customer=Customer::where('user_id',$user_id)->count();
-        $Invoice= Invoice::where('user_id',$user_id)->count();
-        $total=  Invoice::where('user_id',$user_id)->sum('total');
-        $vat= Invoice::where('user_id',$user_id)->sum('vat');
-        $payable =Invoice::where('user_id',$user_id)->sum('payable');
-
-        return[
-            'product'=> $product,
-            'category'=> $Category,
-            'customer'=> $Customer,
-            'invoice'=> $Invoice,
-            'total'=> round($total,2),
-            'vat'=> round($vat,2),
-            'payable'=> round($payable,2)
+    function DashboardPage(): View
+    {
+        $allAdmissionCount = Visitors::all()->count();
+        $allCampusCount = Campus::all()->count();
+        $allStudentCount = Student::count();
+        $feeType = DB::table('fee')->count();
+        $allCount = [
+            'allVisitorCount' => $allAdmissionCount,
+            'allCampusCount' => $allCampusCount,
+            'allStudentCount' => $allStudentCount,
+            'feeType' => $feeType,
+            'allTeacherCount' => 5
         ];
-
-
+        return view('pages.dashboard.dashboard-page', compact("allCount"));
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mobile',50);
             $table->string('password',50);
             $table->string('otp',10);
+            $table->string('type',10);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

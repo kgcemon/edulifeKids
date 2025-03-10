@@ -1,51 +1,48 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7 animated fadeIn col-lg-6 center-screen">
-            <div class="card w-90  p-4">
+            <div class="card w-90 p-4">
                 <div class="card-body">
-                    <h4>ADMIN SIGN IN</h4>
-                    <br/>
-                    <input id="email" placeholder="Email" class="form-control" type="email"/>
-                    <br/>
-                    <input id="password" placeholder="Password" class="form-control" type="password"/>
-                    <br/>
-                    <button onclick="SubmitLogin()" class="btn w-100 bg-gradient-primary">Next</button>
-                    <hr/>
-                    <div class="float-end mt-3">
-                        <span>
-                            <a class="text-center ms-3 h6" href="{{url('/sendOtp')}}">Forget Password</a>
-                        </span>
+                    <div class="text-center">
+                        <h4>ADMIN SIGN IN</h4>
                     </div>
+                    @if(session()->has('error'))
+                        <div class="alert alert-danger text-white" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    <br/>
+
+                    <form action="{{ route('login') }}" method="POST">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" placeholder="Enter your email"
+                                   class="form-control @error('email') is-invalid @enderror" type="email" required />
+                            @error('email')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input id="password" name="password" placeholder="Enter your password"
+                                   class="form-control @error('password') is-invalid @enderror" type="password" required />
+                            @error('password')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <br/>
+
+                        <button class="btn w-100 bg-gradient-primary">Next</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<script>
-
-  async function SubmitLogin() {
-            let email=document.getElementById('email').value;
-            let password=document.getElementById('password').value;
-
-            if(email.length===0){
-                errorToast("Email is required");
-            }
-            else if(password.length===0){
-                errorToast("Password is required");
-            }
-            else{
-                showLoader();
-                let res=await axios.post("/user-login",{email:email, password:password});
-                hideLoader()
-                if(res.status===200 && res.data['status']==='success'){
-                    window.location.href="/dashboard";
-                }
-                else{
-                    errorToast(res.data['message']);
-                }
-            }
-    }
-
-</script>
